@@ -1,0 +1,45 @@
+.workSection{
+    background-position: center;
+    background-size: cover;
+}
+.workSection h1{
+    clear: both;
+    float: left;
+    margin-left: 5vw;
+    font-size: 4vw;
+    color: white;
+    margin-top: 10vh;
+}
+.workBtn{
+    clear: both;
+    float: left;
+    border: 0px;
+    font-weight: bold;
+    background-color: rgb(43, 41, 41);
+    font-family: cursive;
+    color: white;
+    border-radius: 6px;
+    font-size: 2.3vw;
+    cursor: pointer;
+    margin-top: 50vh;
+    margin-left: 8%;
+    padding: 5px 20px;
+}
+.workBtn:hover{
+    background-color: black;
+}
+#ct{
+    position: absolute;
+    left: 5%;
+    top:30vh;
+    font-size: 8vw;
+}
+@media(max-width:750px)
+{
+    .workBtn{
+        margin-top: 20vh;
+    }
+    #ct{
+        top:20vh
+    }
+}
