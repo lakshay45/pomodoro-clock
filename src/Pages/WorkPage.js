@@ -40,7 +40,7 @@ const WorkPage=(props)=>{
 
     const clearTimer = (e) => {
 
-        setTimer('00:01:10');
+        setTimer('00:25:00');
         if (Ref.current) clearInterval(Ref.current);
         const id = setInterval(() => {
             startTimer(e);
@@ -49,7 +49,7 @@ const WorkPage=(props)=>{
     }
     const getDeadTime = () => {
         let deadline = new Date();
-        deadline.setSeconds(deadline.getSeconds() + 70);
+        deadline.setSeconds(deadline.getSeconds() + 1500);
         return deadline;
     }
     useEffect(() => {
