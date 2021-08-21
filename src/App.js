@@ -49,7 +49,7 @@ function App() {
         if(inputNumber>1)
         {
           inputNumber=inputNumber-1;
-          pomodoro(1500);
+          pomodoro(70);
           setIsPageStatus({
             isStartPage: false,
             isWorkPage: true,
@@ -78,7 +78,7 @@ function App() {
       isStartPage:false,
       isBreakPage:false
     });
-    pomodoro(1500);
+    pomodoro(70);
   }
 
   const stopTimeCycle = (event) => {
