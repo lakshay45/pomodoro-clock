@@ -26,6 +26,10 @@ function App() {
     interval = setInterval(function () {
       seconds--;
       if (!seconds) {
+        
+    if (Ref.current) clearInterval(Ref.current);
+    if (Ref2.current) clearInterval(Ref2.current);
+
         pomodoroRest(300);
         setIsPageStatus({
           isStartPage: false,
@@ -43,6 +47,9 @@ function App() {
     interval2 = setInterval(function () {
       seconds2--;
       if (!seconds2) {
+        
+        if (Ref.current) clearInterval(Ref.current);
+        if (Ref2.current) clearInterval(Ref2.current);
         if(inputNumber>1)
         {
           pomodoro(1500);
@@ -55,9 +62,6 @@ function App() {
         }
         else
         {
-          if (Ref.current) clearInterval(Ref.current);
-          if (Ref2.current) clearInterval(Ref2.current);
-
           setIsPageStatus({
             isStartPage: true,
             isBreakPage: false,
