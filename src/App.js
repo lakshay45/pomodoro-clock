@@ -115,9 +115,6 @@ function App() {
     }
   }
 }
-  useEffect(() => {
-    clearTimer(getDeadTime());
-  }, []);
 
   return (
     <Fragment>
