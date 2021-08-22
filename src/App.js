@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import StartPage from './Pages/StartPage';
 import WorkPage from "./Pages/WorkPage";
 import BreakPage from "./Pages/BreakPage";
@@ -10,71 +10,14 @@ function App() {
     isWorkPage:false,
     isBreakPage:false
   });
-  var interval=0;
-  var seconds = 0;
-  var interval2=0;
-  var seconds2 = 0;
   var inputNumber;
   const Ref=useRef(null);
   const Ref2=useRef(null);
 
-  const pomodoro = (secs) => {
-    seconds = secs || 0;
-    if (Ref.current) clearInterval(Ref.current);
-    if (Ref2.current) clearInterval(Ref2.current);
-
-    interval = setInterval(function () {
-      seconds--;
-      if (!seconds) {
-        
-    if (Ref.current) clearInterval(Ref.current);
-    if (Ref2.current) clearInterval(Ref2.current);
-
-        pomodoroRest(300);
-        setIsPageStatus({
-          isStartPage: false,
-          isWorkPage: false,
-          isBreakPage: true
-        });
-      }
-    }, 1000)
-    Ref.current = interval;
-  }
-  const pomodoroRest = (secs) => {
-    seconds2 = secs || 0;
-    if (Ref.current) clearInterval(Ref.current);
-    if (Ref2.current) clearInterval(Ref2.current);
-    interval2 = setInterval(function () {
-      seconds2--;
-      if (!seconds2) {
-        
-        if (Ref.current) clearInterval(Ref.current);
-        if (Ref2.current) clearInterval(Ref2.current);
-        if(inputNumber>1)
-        {
-          pomodoro(1500);
-          setIsPageStatus({
-            isStartPage: false,
-            isWorkPage: true,
-            isBreakPage: false
-          });
-          inputNumber=inputNumber-1;
-        }
-        else
-        {
-          setIsPageStatus({
-            isStartPage: true,
-            isBreakPage: false,
-            isWorkPage: false
-          });
-        }
-      }
-    }, 1000)
-    Ref2.current = interval2;
-  }
+ 
   const startTimeCycle=(input)=>{
     inputNumber=input;
-    pomodoro(1500);
+    clearTimer(getDeadTime());
     setIsPageStatus({
       isWorkPage:true,
       isStartPage:false,
@@ -94,6 +37,87 @@ function App() {
     });
     // seconds=0;
   }
+
+  const getTimeRemaining = (e) => {
+    const total = Date.parse(e) - Date.parse(new Date());
+    return {
+      total
+    };
+  }
+
+
+  const startTimer = (e) => {
+    let { total }
+      = getTimeRemaining(e);
+    if (total <= 1) {
+      // console.log(total+" is here");
+      if (Ref.current) clearInterval(Ref.current);
+      clearTimer2(getDeadTime2());
+      setIsPageStatus({
+        isStartPage: false,
+        isWorkPage: false,
+        isBreakPage: true
+      });
+    }
+  }
+  const clearTimer = (e) => {
+
+    if (Ref.current) clearInterval(Ref.current);
+    const id = setInterval(() => {
+      startTimer(e);
+    }, 1000)
+    Ref.current = id;
+  }
+  const getDeadTime = () => {
+    let deadline = new Date();
+    deadline.setSeconds(deadline.getSeconds() + 1500);
+    return deadline;
+  }
+
+  const clearTimer2 = (e) => {
+
+    if (Ref2.current) clearInterval(Ref2.current);
+    const id = setInterval(() => {
+      startTimer2(e);
+    }, 1000)
+    Ref2.current = id;
+  }
+  const getDeadTime2 = () => {
+    let deadline = new Date();
+    deadline.setSeconds(deadline.getSeconds() + 300);
+    return deadline;
+  }
+  const startTimer2 = (e) => {
+    let { total }
+      = getTimeRemaining(e);
+    // console.log(inputNumber+" "+total);
+    if (total <= 0) {
+      // console.log(inputNumber);
+      if (inputNumber > 1) {
+        if (Ref2.current) clearInterval(Ref2.current);
+        clearTimer(getDeadTime());
+        setIsPageStatus({
+          isStartPage: false,
+          isWorkPage: true,
+          isBreakPage: false
+        });
+        inputNumber = inputNumber - 1;
+    }
+      else {
+        if (Ref.current) clearInterval(Ref.current);
+        if (Ref2.current) clearInterval(Ref2.current);
+
+        setIsPageStatus({
+          isStartPage: true,
+          isWorkPage: false,
+          isBreakPage: false
+        });
+    }
+  }
+}
+  useEffect(() => {
+    clearTimer(getDeadTime());
+  }, []);
 
   return (
     <Fragment>
