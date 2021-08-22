@@ -26,8 +26,6 @@ function App() {
     interval = setInterval(function () {
       seconds--;
       if (!seconds) {
-        if (Ref.current) clearInterval(Ref.current);
-        if (Ref2.current) clearInterval(Ref2.current);
         pomodoroRest(300);
         setIsPageStatus({
           isStartPage: false,
