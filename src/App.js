@@ -45,16 +45,15 @@ function App() {
     interval2 = setInterval(function () {
       seconds2--;
       if (!seconds2) {
-        console.log("here is your number:"+inputNumber);
         if(inputNumber>1)
         {
-          inputNumber=inputNumber-1;
           pomodoro(1500);
           setIsPageStatus({
             isStartPage: false,
             isWorkPage: true,
             isBreakPage: false
           });
+          inputNumber=inputNumber-1;
         }
         else
         {
